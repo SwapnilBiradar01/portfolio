@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swapnil Biradar | Product Design & Development Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0e0e;
+    --paper: #f5f2ec;
+    --cream: #ede9e0;
+    --accent: #c4713a;
+    --accent2: #2b5f4e;
+    --muted: #8a8070;
+    --line: rgba(14,14,14,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    background: rgba(245,242,236,0.85);
+    border-bottom: 1px solid var(--line);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 4rem 6rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 6.5rem);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-name span {
+    display: block;
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-tagline {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 400px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.9rem 2rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid var(--ink);
+    transition: all 0.25s ease;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: transparent;
+    color: var(--ink);
+    padding: 0.9rem 2rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid var(--ink);
+    transition: all 0.25s ease;
+  }
+
+  .btn-outline:hover {
+    background: var(--ink);
+    color: var(--paper);
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 70%, rgba(196,113,58,0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(43,95,78,0.2) 0%, transparent 50%);
+  }
+
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 40px,
+      rgba(245,242,236,0.5) 40px, rgba(245,242,236,0.5) 41px
+    ),
+    repeating-linear-gradient(
+      90deg, transparent, transparent 40px,
+      rgba(245,242,236,0.5) 40px, rgba(245,242,236,0.5) 41px
+    );
+  }
+
+  .hero-stats {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 4rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .stat-item {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,242,236,0.5);
+    margin-top: 0.3rem;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1.2s;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollLine 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.5); opacity: 0.4; }
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 7rem 4rem; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .about-left {}
+
+  .about-text {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #3a3530;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .about-right {}
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .skill-card {
+    background: var(--paper);
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(14,14,14,0.08);
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--accent);
+    transition: height 0.3s ease;
+  }
+
+  .skill-card:hover::before { height: 100%; }
+
+  .skill-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .skill-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .skill-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── EXPERIENCE ── */
+  .experience { background: var(--paper); }
+
+  .timeline {
+    position: relative;
+    max-width: 900px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    padding: 0 0 4rem 3.5rem;
+    position: relative;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -6px; top: 6px;
+    width: 13px; height: 13px;
+    background: var(--accent);
+    border: 3px solid var(--paper);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--accent);
+  }
+
+  .timeline-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-company {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-role {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .timeline-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .timeline-points li {
+    font-size: 0.9rem;
+    color: #3a3530;
+    line-height: 1.6;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .timeline-points li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  /* ── PROJECTS / ACHIEVEMENTS ── */
+  .projects { background: var(--ink); }
+
+  .projects .section-title { color: var(--paper); }
+  .projects .section-num { color: var(--accent); }
+  .projects .section-header { border-color: rgba(245,242,236,0.1); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(245,242,236,0.1);
+  }
+
+  .project-card {
+    background: var(--ink);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: background 0.3s ease;
+  }
+
+  .project-card:hover { background: #1a1a1a; }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 3px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+
+  .project-card:hover::after { width: 100%; }
+
+  .project-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(196,113,58,0.4);
+    padding: 0.25rem 0.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--paper);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.7;
+  }
+
+  .project-award {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  .certifications { background: var(--cream); }
+
+  .cert-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .cert-item {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .cert-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(14,14,14,0.07);
+  }
+
+  .cert-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .cert-name {
+    font-weight: 600;
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+
+  .cert-org {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── LANGUAGES ── */
+  .languages-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+  }
+
+  .lang-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
+  .lang-dot {
+    width: 8px; height: 8px;
+    background: var(--accent2);
+    border-radius: 50%;
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--paper);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .contact-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-headline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .contact-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+    background: var(--paper);
+  }
+
+  .contact-link:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+    transform: translateX(6px);
+  }
+
+  .contact-link-icon {
+    width: 36px; height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cream);
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: background 0.25s;
+  }
+
+  .contact-link:hover .contact-link-icon {
+    background: rgba(245,242,236,0.15);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 2.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(245,242,236,0.1);
+  }
+
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--paper);
+    font-style: italic;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(245,242,236,0.35);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 300px; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    .hero-stats { flex-direction: row; flex-wrap: wrap; padding: 2rem; }
+    .about { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .contact { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
+    section { padding: 5rem 2rem; }
+    footer { flex-direction: column; gap: 1rem; padding: 2rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SB</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Product Design & Development Specialist</p>
+    <h1 class="hero-name">
+      Swapnil<span>Biradar</span>
+    </h1>
+    <p class="hero-tagline">
+      Techno-commercial product thinker who turns complex ideas into scalable, user-focused, and commercially viable products — from concept to launch.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Get in Touch →</a>
+      <a href="#experience" class="btn-outline">View Work</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-pattern"></div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Full NPD Lifecycles</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Languages Spoken</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">PMP</div>
+        <div class="stat-label">Certification in Progress</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-left">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About <em>Me</em></h2>
+    </div>
+    <p class="about-text">
+      I'm a <strong>techno-commercial product professional</strong> with a strong foundation in mechanical engineering, project management, and product development. My core strength lies in transforming complex ideas into scalable, user-focused, and commercially viable products.
+    </p>
+    <p class="about-text">
+      Over the years, I've worked across <strong>product design, reverse engineering, prototyping, and large-scale project delivery</strong>, bridging the gap between engineering teams, business stakeholders, and customer needs.
+    </p>
+    <p class="about-text">
+      Unlike traditional project managers, I bring a deep technical understanding of HVAC, electro-mechanical systems, and software basics — combined with commercial thinking. This allows me to identify real customer pain points, guide teams toward the right solution, and improve product-market alignment.
+    </p>
+    <p class="about-text">
+      Currently <strong>appearing for PMP certification</strong> and transitioning into Product Design Manager / Product Owner roles, where I can own product lifecycle end-to-end and drive business impact through product strategy.
+    </p>
+  </div>
+  <div class="about-right">
+    <div class="section-header" style="border-bottom:none;margin-bottom:1rem;">
+      <span class="section-num" style="opacity:0">—</span>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;">Core Competencies</h3>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🔧</div>
+        <div class="skill-name">Product Development</div>
+        <div class="skill-desc">Concept → prototype → commercialization with APQP, DFMEA, PFMEA</div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Project Management</div>
+        <div class="skill-desc">SAP PS, Smartsheet, Jira, Power BI, WBS & KPI tracking</div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🏗️</div>
+        <div class="skill-name">Engineering Design</div>
+        <div class="skill-desc">CATIA V5, AutoCAD, HVAC systems, reverse engineering</div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">💼</div>
+        <div class="skill-name">Techno-Commercial</div>
+        <div class="skill-desc">BOM, costing models, ROI analysis, stakeholder management</div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🔄</div>
+        <div class="skill-name">Agile & PMO</div>
+        <div class="skill-desc">Cross-functional teams, portfolio management, risk mitigation</div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">Digital Tools</div>
+        <div class="skill-desc">SharePoint, Bluebeam, Power BI dashboards, Java full-stack</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Work <em>Experience</em></h2>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Feb 2024 — Present · 2 yrs 2 mos</div>
+      <div class="timeline-company">SwapnGreen Global</div>
+      <div class="timeline-role">Independent Product & Engineering Consultant · India</div>
+      <ul class="timeline-points">
+        <li>Led end-to-end project execution from concept to manufacturing for multiple client products</li>
+        <li>Consulted with clients to define scope, timelines, cost estimates, and technical feasibility</li>
+        <li>Developed project plans, resource allocation strategies, and execution roadmaps</li>
+        <li>Managed change requests, assessed impact on cost, timeline, and quality with mitigation plans</li>
+        <li>Supported business growth by generating repeat projects and client referrals</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Dec 2022 — Feb 2024 · 1 yr 3 mos</div>
+      <div class="timeline-company">JLL</div>
+      <div class="timeline-role">Assistant Project Lead – PMO (Data Center Projects) · Mumbai</div>
+      <ul class="timeline-points">
+        <li>Led coordination for cross-functional project teams across the Equinix account (Americas region)</li>
+        <li>Developed and maintained detailed project plans, schedules, and resource tracking using Smartsheet</li>
+        <li>Defined WBS, critical path activities, and resource requirements to ensure QCD targets</li>
+        <li>Monitored project health through KPIs, cost tracking, and performance dashboards (Power BI)</li>
+        <li>Streamlined approval workflows and documentation processes using SharePoint and Bluebeam</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Aug 2021 — Oct 2022 · 1 yr 3 mos</div>
+      <div class="timeline-company">Unitec</div>
+      <div class="timeline-role">Project Engineer – HVAC & Data Center · Pune</div>
+      <ul class="timeline-points">
+        <li>Managed design and execution of HVAC systems for Schneider Electric account</li>
+        <li>Consulted with clients and sales teams to develop techno-commercial proposals</li>
+        <li>Performed project planning, heat load calculations, and system selection</li>
+        <li>Supported tendering process, cost estimation, and technical solution alignment</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Aug 2019 — Aug 2021 · 2 yrs 1 mo</div>
+      <div class="timeline-company">SAM Integrations Pvt. Ltd.</div>
+      <div class="timeline-role">Application Engineer (NPD) → Trainee Engineer (R&D) · Pune</div>
+      <ul class="timeline-points">
+        <li>Led new product development from concept to commercialization — 2+ full lifecycle projects</li>
+        <li>Managed product design, prototyping, testing, and final validation using APQP, DFMEA, PFMEA</li>
+        <li>Developed BOM, costing models, and ROI analysis for product viability</li>
+        <li>Delivered award-winning Metallic Fuel Sensor (Kirloskar recognition — "Budding NPD Leader")</li>
+        <li>Designed and developed an Irrigation Fertilizer Machine with full functional validation</li>
+        <li>Implemented automation and line balancing improvements, increasing production efficiency</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS / HIGHLIGHTS -->
+<section class="projects" id="projects">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Key <em>Projects</em></h2>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card fade-in">
+      <div class="project-tag">NPD · Hardware</div>
+      <div class="project-title">Metallic Fuel Level Sensor</div>
+      <div class="project-desc">Led full new product development lifecycle — from concept through prototype, testing, validation, and commercialization — for a metallic fuel sensor recognized by Kirloskar.</div>
+      <div class="project-award">🏆 Budding NPD Leader Award · Best Project of the Year</div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-tag">Data Center · PMO</div>
+      <div class="project-title">Equinix Data Center Projects (Americas)</div>
+      <div class="project-desc">Drove PMO functions for a global data center portfolio at JLL, coordinating cross-functional teams across Americas region with Smartsheet, Power BI, and SharePoint dashboards.</div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-tag">HVAC · Engineering</div>
+      <div class="project-title">Schneider Electric HVAC Systems</div>
+      <div class="project-desc">Designed and managed execution of custom HVAC systems — from heat load calculations and system selection to full installation compliance — aligned to client specs and industry standards.</div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-tag">AgriTech · Prototype</div>
+      <div class="project-title">Irrigation Fertilizer Machine</div>
+      <div class="project-desc">Designed and prototyped an irrigation fertilizer machine during R&D tenure, ensuring functional performance and usability from first principles to validated working prototype.</div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-tag">Research · Publication</div>
+      <div class="project-title">Electromagnetic Launcher Design</div>
+      <div class="project-desc">Published research on the design and prototyping of an electromagnetic launcher. Also published research on safety of light and heavy vehicles in prototype development contexts.</div>
+      <div class="project-award">📄 Published Research Paper</div>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-tag">Consulting · End-to-End</div>
+      <div class="project-title">Client Product Lifecycle Consulting</div>
+      <div class="project-desc">As an independent consultant, managed multiple client products from concept to manufacturing — coordinating engineering, vendor management, and change control within constrained budgets and timelines.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certifications" id="certifications">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Credentials & <em>Languages</em></h2>
+  </div>
+  <div class="cert-list">
+    <div class="cert-item fade-in">
+      <div class="cert-icon">🎓</div>
+      <div class="cert-name">Google Project Management Certificate</div>
+      <div class="cert-org">Google / Coursera</div>
+    </div>
+    <div class="cert-item fade-in">
+      <div class="cert-icon">✏️</div>
+      <div class="cert-name">CATIA V5 Certification</div>
+      <div class="cert-org">Certified CAD Proficiency</div>
+    </div>
+    <div class="cert-item fade-in">
+      <div class="cert-icon">🏭</div>
+      <div class="cert-name">Digital Transformation & Industry 4.0</div>
+      <div class="cert-org">Professional Certification</div>
+    </div>
+    <div class="cert-item fade-in">
+      <div class="cert-icon">🤝</div>
+      <div class="cert-name">Managing Project Stakeholders</div>
+      <div class="cert-org">Project Management Institute</div>
+    </div>
+    <div class="cert-item fade-in">
+      <div class="cert-icon">⚠️</div>
+      <div class="cert-name">Project Management Foundations: Risk</div>
+      <div class="cert-org">PMI Member Credential</div>
+    </div>
+    <div class="cert-item fade-in" style="border:2px dashed var(--accent);">
+      <div class="cert-icon">🎯</div>
+      <div class="cert-name">PMP — Project Management Professional</div>
+      <div class="cert-org" style="color:var(--accent);">Currently Appearing · PMI</div>
+    </div>
+  </div>
+
+  <div class="languages-row fade-in">
+    <div class="lang-chip"><div class="lang-dot" style="background:var(--accent)"></div> English — Full Professional</div>
+    <div class="lang-chip"><div class="lang-dot" style="background:var(--accent2)"></div> French — Full Professional</div>
+    <div class="lang-chip"><div class="lang-dot" style="background:#6b8e5e"></div> Marathi — Full Professional</div>
+    <div class="lang-chip"><div class="lang-dot" style="background:#8a8070"></div> Hindi — Full Professional</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div>
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Let's <em>Connect</em></h2>
+    </div>
+    <h3 class="contact-headline">Ready to turn your <em>idea</em> into reality?</h3>
+    <p class="contact-sub">
+      I'm open to Product Design Manager, Product Owner, and senior project management roles — or consulting engagements where I can bring a product from concept to market.
+    </p>
+    <a href="mailto:Swapnil.Biradar@yahoo.com" class="btn-primary">Send an Email →</a>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:Swapnil.Biradar@yahoo.com" class="contact-link">
+      <div class="contact-link-icon">✉️</div>
+      <div>
+        <div style="font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;">Email</div>
+        Swapnil.Biradar@yahoo.com
+      </div>
+    </a>
+    <a href="https://www.linkedin.com/in/swapnilbiradar-067793145" target="_blank" class="contact-link">
+      <div class="contact-link-icon">💼</div>
+      <div>
+        <div style="font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;">LinkedIn</div>
+        swapnilbiradar-067793145
+      </div>
+    </a>
+    <a href="https://github.com/SwapnilBiradar01" target="_blank" class="contact-link">
+      <div class="contact-link-icon">⌨️</div>
+      <div>
+        <div style="font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;">GitHub</div>
+        SwapnilBiradar01
+      </div>
+    </a>
+    <div class="contact-link" style="cursor:default;">
+      <div class="contact-link-icon">📍</div>
+      <div>
+        <div style="font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;">Location</div>
+        Pune, Maharashtra, India
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Swapnil Biradar</div>
+  <div class="footer-copy">© 2025 · Product Design & Development Specialist · PMI Member</div>
+</footer>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, entry.target.dataset.delay || 0);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in, .timeline-item').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 100;
+    observer.observe(el);
+  });
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 50) {
+      nav.style.padding = '0.8rem 4rem';
+    } else {
+      nav.style.padding = '1.2rem 4rem';
+    }
+  });
+</script>
+</body>
+</html>
